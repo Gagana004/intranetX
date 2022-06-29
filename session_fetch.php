@@ -1,6 +1,6 @@
 <?php
 
-//user_fetch.php
+//session_fetch.php
 
 include('database_connection.php');
 
@@ -14,7 +14,6 @@ if(isset($_POST["search"]["value"])) {
 	$query .= 'AND (u.username LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR s.in_time LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR s.out_time LIKE "%'.$_POST["search"]["value"].'%") ';
-//	$query .= 'OR v_status LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 
 if(isset($_POST['order'])) {
@@ -44,8 +43,6 @@ foreach($result as $row) {
 	$sub_array[] = $row['username'];
 	$sub_array[] = $row['in_time'];
 	$sub_array[] = $row['out_time'];
-//	$sub_array[] = $status;
-//    $sub_array[] = '<button type="button" name="update" id="'.$row["u_id"].'" class="btn btn-xs update"><i class="fa fa-edit"></i></button>';
     $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-xs delete"><i class="fa fa-trash"></i></button>';
 	$data[] = $sub_array;
 }

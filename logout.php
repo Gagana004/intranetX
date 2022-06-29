@@ -1,4 +1,5 @@
 <?php
+//logout.php
 //including database connection file
 include ('database_connection.php');
 

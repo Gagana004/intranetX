@@ -1,4 +1,5 @@
 <?php
+//link_action.php
 
 include('database_connection.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-//user_action.php
+//session_action.php
 
 include('database_connection.php');
 

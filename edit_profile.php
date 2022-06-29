@@ -12,7 +12,7 @@ if(isset($_POST['u_name'])) {
 			u_password = '".$_POST["user_new_password"]."' 
 			WHERE u_id = '".$_SESSION["USER_ID"]."'";
 	} else {
-		//user didn't set new password
+		//if user didn't set new password
 		$query = "UPDATE user SET 
 			username = '".$_POST["u_name"]."'
 			WHERE u_id = '".$_SESSION["USER_ID"]."'
