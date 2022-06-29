@@ -1,17 +1,129 @@
 <?php
-//including database connection file
-include ('db_connection.php');
+//index.php
+include('database_connection.php');
+include('function.php');
 
-//if user not loged in, redirect to the login page
-if (!isset($_SESSION['USER_ID'])) {
-    header("location:login.php");
-    die();
+if(!isset($_SESSION["type"]))
+{
+	header("location:login.php");
 }
 
-include ('header.php');
+include('header.php');
+
 ?>
+	<br />
+	<div class="row">
 
+		<!-- only master user can seee this -->
+	<?php
+	if($_SESSION['type'] == 'admin')
+	{
+	?>
 
+		<!-- labels  -->
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total User</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_user($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Active Sessions</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_current_active_sessions($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Services</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_services($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+	<?php
+	}
+	?>
 
-</body>
-</html>
+	<!-- user and master can see this -->		
+	<?php
+		if($_SESSION['type']!== 'admin')
+		{
+	?>
+	<!-- lables -->
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Category</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_category($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Item</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_item($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Asset</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_asset($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Vendors</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_vendor($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Purchase Records</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_purchase($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Transfer Records</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_transfer($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Repair Records</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_repair($connect); ?></h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Total Disposal Records</strong></div>
+				<div class="panel-body">
+					<h1><?php echo count_total_disposal($connect); ?></h1>
+				</div>
+			</div>
+		</div>	
+		<?php
+		}
+		?>
+	</div>
+
+<?php
+include("footer.php");
+?>

@@ -1,44 +1,125 @@
 <?php
-require ('db_connection.php');
-require ('header.php');
+//user.php
 
-$query = "SELECT u.username, s.* FROM sessions as s, user as u WHERE u.u_id = s.user_id";
-$statement = $connect->prepare($query);
-$statement->execute();
-$count = $statement->rowCount();
-$arr_users = [];
-if ($count > 0){
-    $arr_users = $statement->fetchAll();
+include('database_connection.php');
+
+if(!isset($_SESSION['type']))
+{
+	header('location:login.php');
 }
+
+include('header.php');
+
 ?>
 
-    <table id="session_table">
-        <thead>
-        <th>session id</th>
-        <th>user id</th>
-        <th>in time</th>
-        <th>out time</th>
-        </thead>
-        <tbody>
-        <?php if(!empty($arr_users)) { ?>
-            <?php foreach($arr_users as $user) { ?>
-                <tr>
-                    <td><?= $user['id']; ?></td>
-                    <td><?= $user['username']; ?></td>
-                    <td><?= $user['in_time']; ?></td>
-                    <td><?= $user['out_time']; ?></td>
-                </tr>
-            <?php } ?>
-        <?php } ?>
-        </tbody>
-    </table>
+	<span id="alert_action"></span>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+                        <div class="row">
+                            <h3 class="panel-title">Session List</h3>
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                    	<div class="col-sm-12 table-responsive">
+                            <table id="session_data" class="table">
+                                <thead><tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>In time</th>
+                                    <th>Out Time time</th>
+                                    <th>Delete</th>
+                                </tr></thead>
+                            </table>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>	
+$(document).ready(function(){
+	var sessiondataTable = $('#session_data').DataTable({
+		"processing":true,
+		"serverSide":true,
+		"order":[],
+		"ajax":{
+			url:"session_fetch.php",
+			type:"POST"
+		},
+		"columnDefs":[
+			{
+				// "targets":[1],
+				"orderable":false,
+			},
+		],
+		"pageLength": 25
+	});
 
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
-<!--    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>-->
-    <script>
-        jQuery(document).ready(function($) {
-            $('#session_table').DataTable();
-        } );
-    </script>
+	$(document).on('click', '.delete', function(){
+		var id = $(this).attr('id');
+		var btn_action = 'delete';
+		if(confirm("Are you sure you want to change status?")) {
+			$.ajax({
+				url:"session_action.php",
+				method:"POST",
+				data:{id:id, btn_action:btn_action},
+				success:function(data) {
+					$('#alert_action').fadeIn().html('<div class="alert alert-danger">'+data+'</div>');
+					sessiondataTable.ajax.reload();
+				}
+			})
+		}else {
+			return false;
+		}
+	});
+
+//     var minDate, maxDate;
+//
+// // Custom filtering function which will search data in column four between two values
+//     $.fn.dataTable.ext.search.push(
+//         function( settings, data, dataIndex ) {
+//             var min = minDate.val();
+//             var max = maxDate.val();
+//             var date = new Date( data[4] );
+//
+//             if (
+//                 ( min === null && max === null ) ||
+//                 ( min === null && date <= max ) ||
+//                 ( min <= date   && max === null ) ||
+//                 ( min <= date   && date <= max )
+//             ) {
+//                 return true;
+//             }
+//             return false;
+//         }
+//     );
+
+    // // Create date inputs
+    // minDate = new DateTime($('#min'), {
+    //     format: 'MMMM Do YYYY'
+    // });
+    // maxDate = new DateTime($('#max'), {
+    //     format: 'MMMM Do YYYY'
+    // });
+    //
+    // // DataTables initialisation
+    // var table = $('#example').DataTable();
+    //
+    // // Refilter the table
+    // $('#min, #max').on('change', function () {
+    //     table.draw();
+    // });
+});
+</script>
 
 <?php
+include('footer.php');
+?>
+				

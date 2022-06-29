@@ -6,6 +6,7 @@
 	<head>
 		<title>IntranetX</title>
 
+        
 		<script src="js/jquery-1.10.2.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,11 +28,27 @@
 						<a href="index.php" class="navbar-brand">Home</a>
 					</div>
 					<ul class="nav navbar-nav">
-                        <li><a href="link.php">Services</a></li>
-					<?php if($_SESSION['type'] == 'admin') {?> <!-- only admin can see theses -->
-						<li><a href="user.php">Users</a></li>
-                        <li><a href="session.php">Sessions</a></li>
-					<?php } ?>
+					<?php
+					if($_SESSION['type'] == 'master') 
+					{
+					?>
+						<li><a href="user.php">User</a></li> <!-- only master-user can manage users -->
+						
+					<?php
+					}
+					?>	
+						<li><a href="link.php">Link</a></li>
+						<li><a href="category.php">Category</a></li>
+						<li><a href="item.php">Items </a></li>
+						<li><a href="purchase.php">Purchase</a></li>
+						<li><a href="asset.php">Assets</a></li>
+						<li><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Asset Transfer </a>
+       						 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					          <a class="dropdown-item" href="transfer.php">Transfer</a>
+					          <a class="dropdown-item" href="repair.php">Repair</a>
+					          <a class="dropdown-item" href="disposal.php">Disposal</a>
+					        </div>
+        				</li>												
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
