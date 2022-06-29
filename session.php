@@ -22,6 +22,11 @@ include('header.php');
                             <h3 class="panel-title">Session List</h3>
                         </div>
                     </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                        <div class="row" align="right">
+                            <a type="button" name="export" id="export" href="session_export.php" class="btn btn-success btn-xs">Export</a>
+                        </div>
+                    </div>
                     <div style="clear:both"></div>
                 </div>
                 <div class="panel-body">
@@ -68,7 +73,7 @@ $(document).ready(function(){
 		if(confirm("Are you sure you want to change status?")) {
 			$.ajax({
 				url:"session_action.php",
-				method:"POST",
+				method:"GET",
 				data:{id:id, btn_action:btn_action},
 				success:function(data) {
 					$('#alert_action').fadeIn().html('<div class="alert alert-danger">'+data+'</div>');
@@ -79,43 +84,6 @@ $(document).ready(function(){
 			return false;
 		}
 	});
-
-//     var minDate, maxDate;
-//
-// // Custom filtering function which will search data in column four between two values
-//     $.fn.dataTable.ext.search.push(
-//         function( settings, data, dataIndex ) {
-//             var min = minDate.val();
-//             var max = maxDate.val();
-//             var date = new Date( data[4] );
-//
-//             if (
-//                 ( min === null && max === null ) ||
-//                 ( min === null && date <= max ) ||
-//                 ( min <= date   && max === null ) ||
-//                 ( min <= date   && date <= max )
-//             ) {
-//                 return true;
-//             }
-//             return false;
-//         }
-//     );
-
-    // // Create date inputs
-    // minDate = new DateTime($('#min'), {
-    //     format: 'MMMM Do YYYY'
-    // });
-    // maxDate = new DateTime($('#max'), {
-    //     format: 'MMMM Do YYYY'
-    // });
-    //
-    // // DataTables initialisation
-    // var table = $('#example').DataTable();
-    //
-    // // Refilter the table
-    // $('#min, #max').on('change', function () {
-    //     table.draw();
-    // });
 });
 </script>
 

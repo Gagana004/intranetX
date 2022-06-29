@@ -27,7 +27,7 @@ include('header.php');
                              <button type="button" name="add" id="add_button" data-toggle="modal" data-target="#UserModal" class="btn btn-success btn-xs">ADD</button>   		
                         </div>
                         <div class="row" align="right">
-                            <button type="button" name="add" id="add_button" data-toggle="modal" data-target="#UserModal" class="btn btn-success btn-xs">Export</button>
+                            <a type="button" name="export" id="export" href="user_export.php" class="btn btn-success btn-xs">Export</a>
                         </div>
                     </div>
                     <div style="clear:both"></div>
