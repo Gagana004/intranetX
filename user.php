@@ -17,19 +17,23 @@ include('header.php');
 		<div class="col-lg-12">
 			<div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
-                        <div class="row">
-                            <h3 class="panel-title">User List</h3>
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+                                <h3 class="panel-title">User List</h3>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                            <div class="row" align="right">
+                                <div class="col-lg-6 col-md-5 col-sm-4 col-xs-6">
+                                    <button type="button" name="add" id="add_button" data-toggle="modal" data-target="#UserModal" class="btn btn-success">ADD</button>
+                                </div>
+                                <div class="col-lg-6 col-md-5 col-sm-4 col-xs-6">
+                                    <a type="button" name="export" id="export" href="user_export.php" class="btn btn-success">Export</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
-                        <div class="row" align="right">
-                             <button type="button" name="add" id="add_button" data-toggle="modal" data-target="#UserModal" class="btn btn-success btn-xs">ADD</button>   		
-                        </div>
-                        <div class="row" align="right">
-                            <a type="button" name="export" id="export" href="user_export.php" class="btn btn-success btn-xs">Export</a>
-                        </div>
-                    </div>
+
+
                     <div style="clear:both"></div>
                 </div>
                 <div class="panel-body">
@@ -151,7 +155,7 @@ $(document).ready(function(){
 	$(document).on('click', '.delete', function(){
 		var u_id = $(this).attr('id');
 		var btn_action = 'delete';
-		if(confirm("Are you sure you want to change status?")) {
+		if(confirm("Are you sure you want to delete?")) {
 			$.ajax({
 				url:"user_action.php",
 				method:"POST",
