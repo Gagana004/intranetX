@@ -32,12 +32,15 @@ if (isset($_POST["login"])) {
                 header("location:index.php");
 
                 //insert data into session table
+                $date = new DateTime("now", new DateTimeZone('Asia/Kolkata') );
+                $date =  $date->format('Y-m-d H:i:s');
                 $query = "INSERT INTO sessions (user_id, in_time) VALUES (:user_id, :in_time)";
                 $statement = $connect->prepare($query);
                 $statement->execute(
                     array(
                         ':user_id' => $_SESSION['USER_ID'],
-                        ':in_time' => date('Y-m-d h:i:s')
+//                        ':in_time' => date('Y-m-d h:i:s')
+                        ':in_time' => $date
                     )
                 );
                 $session_id = $connect->lastInsertId();
@@ -72,6 +75,16 @@ if (isset($_POST["login"])) {
     <style>
         .login-box {
             width: 450px;
+        }
+        .btn-signin {
+            background-color: #064451;
+            color: white;
+        }
+        .btn-signin:hover {
+            color: white;
+        }
+        .card-primary.card-outline {
+            border-top: 3px solid #064451;
         }
 
         @media (max-width: 576px) {
@@ -116,7 +129,7 @@ if (isset($_POST["login"])) {
                 </div>
                 <div class="row">
                     <div class="col">
-                        <button type="submit" name="login" class="btn btn-primary btn-block">SIGN IN</button>
+                        <button type="submit" name="login" class="btn btn-signin btn-block">SIGN IN</button>
                     </div>
                 </div>
                 <div class="error-msg">
