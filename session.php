@@ -22,7 +22,7 @@ include('header.php');
                                 <h3 class="panel-title">Session List</h3>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" align="right">
-                                <a type="button" name="export" id="export" href="session_export.php" class="btn btn-success">Export</a>
+                                <a type="button" name="export" id="export" href="session_export.php" class="btn btn-info">Export</a>
                         </div>
                     </div>
                     <div style="clear:both"></div>
