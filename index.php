@@ -63,14 +63,6 @@ include('header.php');
 				</div>
 			</div>
 		</div>
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Last Login</strong></div>
-                <div class="panel-body">
-                    <h1><?php echo count_total_services($connect); ?></h1>
-                </div>
-            </div>
-        </div>
 		<?php
 		}
 		?>
