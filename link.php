@@ -75,11 +75,7 @@ include('header.php');
                     <div class="form-group">
                         <label>Access Roles </label>
                         <select name="link_access[]" id="choices-multiple-remove-button" class="form-control" placeholder="Select Access Roles" multiple>
-<!--                            --><?php //echo fill_user_type_list($connect); ?>
-                            <option value="admin">Admin</option>
-                            <option value="hr">HR</option>
-                            <option value="it">IT</option>
-                            <option value="dev">DEV</option>
+                            <?php echo fill_user_type_list($connect); ?>
                         </select>
                     </div>
                 </div>

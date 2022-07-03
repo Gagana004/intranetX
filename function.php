@@ -28,4 +28,18 @@ function count_total_services($connect)
     return $statement->rowCount(); //only return row count
 }
 
+function fill_user_type_list($connect)
+{
+    $query = "SELECT * FROM user_roles ORDER BY ur_id ASC";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+//    $output = '<option value="">Select Role</option>';
+    foreach($result as $row)
+    {
+        $output .= '<option value="'.$row["ur_name"].'">'.$row["ur_name"].'</option>';
+    }
+    return $output;
+}
+
 ?>

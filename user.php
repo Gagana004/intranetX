@@ -2,6 +2,7 @@
 //user.php
 
 include('database_connection.php');
+include "function.php";
 
 if (!isset($_SESSION['type'])) {
     header('location:login.php');
@@ -66,8 +67,9 @@ include('header.php');
                     <label>Select User Type</label>
                     <select name="u_type" id="u_type" class="form-control" required>
                         <option value="">Select User Type</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        <?php echo fill_user_type_list($connect); ?>
+<!--                        <option value="admin">Admin</option>-->
+<!--                        <option value="user">User</option>-->
                     </select>
                 </div>
                 <div class="form-group">
