@@ -6,12 +6,20 @@ include('database_connection.php');
 if(isset($_POST['btn_action'])) {
     //add new service
 	if($_POST['btn_action'] == 'ADD') {
-		$query = "INSERT INTO links (link_name, link) VALUES (:link_name, :link)";
+
+        $link_access_string = 'admin';
+        foreach ($_POST['link_access'] as $single_link_access){
+            $link_access_string = $single_link_access.','.$link_access_string;
+        }
+        $link_access_string = rtrim($link_access_string, ',');
+
+		$query = "INSERT INTO links (link_name, link, link_access) VALUES (:link_name, :link, :link_access)";
 		$statement = $connect->prepare($query);
 		$statement->execute(
 			array(
 				':link_name'	=>	$_POST["link_name"],
-				':link'	        =>	$_POST["link"]
+				':link'	        =>	$_POST["link"],
+                ':link_access'  =>  $link_access_string
 			)
 		);
         echo "Service Added";
@@ -30,19 +38,27 @@ if(isset($_POST['btn_action'])) {
 		foreach($result as $row) {
 			$output['link_name'] 	= $row['link_name'];
 			$output['link'] 	    = $row['link'];
+            $output['link_access'] 	= $row['link_access'];
 		}
 		echo json_encode($output);
 	}
 
     //update service
 	if($_POST['btn_action'] == 'EDIT') {
-		$query = "UPDATE links SET link_name = :link_name, link = :link WHERE link_id = :link_id";
+        $link_access_string = 'admin';
+        foreach ($_POST['link_access'] as $single_link_access){
+            $link_access_string = $single_link_access.','.$link_access_string;
+        }
+        $link_access_string = rtrim($link_access_string, ',');
+
+		$query = "UPDATE links SET link_name = :link_name, link = :link, link_access = :link_access WHERE link_id = :link_id";
 		$statement = $connect->prepare($query);
 		$statement->execute(
 			array(
 				':link_name'	=>	$_POST["link_name"],
 				':link'     	=>	$_POST["link"],
-				':link_id'		=>	$_POST["link_id"]
+				':link_id'		=>	$_POST["link_id"],
+                ':link_access'	=>	$link_access_string
 			)
 		);
         echo 'Service Edited';

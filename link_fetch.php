@@ -14,6 +14,10 @@ if(isset($_POST["search"]["value"])) {
 	$query .= 'WHERE link_name LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 
+if(isset($_SESSION)){
+    $query .= 'AND link_access LIKE"%'.$_SESSION['type'].'%"';
+}
+
 if(isset($_POST['order'])) {
     $col_no = $_POST['order']['0']['column'] + 1;
 	$query .= 'ORDER BY '.$col_no.' '.$_POST['order']['0']['dir'].' ';
@@ -36,10 +40,12 @@ $data = array();
 $filtered_rows = $statement->rowCount();
 
 foreach($result as $row) {
+    $link_access_list = rtrim($row['link_access'], ',admin');
 	$sub_array = array();
 	$sub_array[] = $row['link_id'];
 	$sub_array[] = $row['link_name'];
     $sub_array[] = '<a type="button" href="'.$row["link"].'"  id="'.$row["link_id"].'" class="btn btn-primary btn-xs visit" target= "_blank">Visit</a>';
+    $sub_array[] = $link_access_list;
     $sub_array[] = '<button type="button" name="update" id="'.$row["link_id"].'" class="btn btn-xs update"><i class="fa fa-edit"></i></button>';
     $sub_array[] = '<button type="button" name="delete" id="'.$row["link_id"].'" class="btn btn-xs delete"><i class="fa fa-trash"></i></button>';
 	$data[] = $sub_array;

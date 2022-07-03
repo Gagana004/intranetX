@@ -2,6 +2,7 @@
 //link.php
 
 include('database_connection.php');
+include 'function.php';
 
 if (!isset($_SESSION['type'])) {
     header('location:login.php');
@@ -15,16 +16,16 @@ include('header.php');
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row">
+            <div class="panel-heading">
+                <div class="row">
                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
                         <h3 class="panel-title">Services List</h3>
                     </div>
                     <?php if ($_SESSION['type'] == 'admin') { ?>
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" align="right">
-                                <button type="button" name="add" id="add_button" data-toggle="modal"
-                                        data-target="#linkModal" class="btn btn-success">ADD
-                                </button>
+                            <button type="button" name="add" id="add_button" data-toggle="modal"
+                                    data-target="#linkModal" class="btn btn-success">ADD
+                            </button>
                         </div>
                     <?php } ?>
                     <div style="clear:both"></div>
@@ -41,6 +42,7 @@ include('header.php');
                                 <th>Service Name</th>
                                 <th>Visit Here</th>
                                 <?php if ($_SESSION['type'] == 'admin') { ?>
+                                    <th>Access Roles</th>
                                     <th>Update</th>
                                     <th>Delete</th>
                                 <?php } ?>
@@ -62,10 +64,24 @@ include('header.php');
             </div>
             <div class="modal-content">
                 <div class="modal-body">
-                    <label>link Name</label>
-                    <input type="text" name="link_name" id="link_name" class="form-control" required/>
-                    <label>link </label>
-                    <input type="text" name="link" id="link" class="form-control" required/>
+                    <div class="form-group">
+                        <label>link Name</label>
+                        <input type="text" name="link_name" id="link_name" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>link </label>
+                        <input type="text" name="link" id="link" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>Access Roles </label>
+                        <select name="link_access[]" id="choices-multiple-remove-button" class="form-control" placeholder="Select Access Roles" multiple>
+<!--                            --><?php //echo fill_user_type_list($connect); ?>
+                            <option value="admin">Admin</option>
+                            <option value="hr">HR</option>
+                            <option value="it">IT</option>
+                            <option value="dev">DEV</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="link_id" id="link_id"/>
@@ -80,6 +96,13 @@ include('header.php');
 
 <script>
     $(document).ready(function () {
+
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount:5,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+        });
 
         $('#add_button').click(function () {
             $('#link_form')[0].reset();

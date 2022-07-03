@@ -16,6 +16,9 @@
 		<script src="js/dataTables.bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
 		<script src="js/bootstrap.min.js"></script>
+<!--        mulitiple choice-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -31,6 +34,7 @@
 					<?php if($_SESSION['type'] == 'admin') {?> <!-- only admin can see theses -->
 						<li><a href="user.php">Users</a></li>
                         <li><a href="session.php">Sessions</a></li>
+                        <li><a href="user_role.php">User Roles</a></li>
 					<?php } ?>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
