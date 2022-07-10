@@ -1,6 +1,7 @@
 <?php
 //function.php
 
+//homepage count boxes
 // count all users in the system
 function count_total_user($connect)
 {
@@ -28,13 +29,39 @@ function count_total_services($connect)
     return $statement->rowCount(); //only return row count
 }
 
+function count_total_user_roles($connect){
+    $query = "SELECT * FROM user_roles ";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    return $statement->rowCount(); //only return row count
+}
+
+function count_total_avilable_services($connect, $user_type){
+    $query = "SELECT * FROM links where link_access like '%$user_type%' ";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    return $statement->rowCount(); //only return row count
+}
+
+//dropdown fillers
 function fill_user_type_list($connect)
 {
     $query = "SELECT * FROM user_roles ORDER BY ur_id ASC";
     $statement = $connect->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll();
-//    $output = '<option value="">Select Role</option>';
+    foreach($result as $row)
+    {
+        $output .= '<option value="'.$row["ur_name"].'">'.$row["ur_name"].'</option>';
+    }
+    return $output;
+}
+
+function fill_user_type_list_without_admin($connect){
+    $query = "SELECT * FROM user_roles where ur_name <> 'admin' ORDER BY ur_id ASC";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
     foreach($result as $row)
     {
         $output .= '<option value="'.$row["ur_name"].'">'.$row["ur_name"].'</option>';
