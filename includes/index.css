@@ -119,7 +119,7 @@ body{
 .modal-content{
     background-color: #838A89;
     border-radius: 0px;
-    color: #ffffff;
+    color: #000000;
 }
 .modal-footer .btn-secondary{
     float: left;
