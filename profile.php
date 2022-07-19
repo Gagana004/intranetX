@@ -17,7 +17,7 @@ $query = "SELECT * FROM user WHERE u_id = '".$_SESSION["USER_ID"]."'";
 		$u_id = '';
 		foreach($result as $row)
 		{
-			$u_name = $row['USER_NAME'];
+			$u_name = $row['username'];
 		}
 
 include('header.php');
