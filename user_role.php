@@ -55,7 +55,7 @@ include('header.php');
         <form method="post" id="user_role_form">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><i class="fa fa-plus"></i> Add User</h4>
+                <h4 class="modal-title"><i class="fa fa-plus"></i> Add User Role</h4>
             </div>
             <div class="modal-content">
                 <div class="modal-body">
@@ -81,7 +81,7 @@ include('header.php');
 
         $('#add_button').click(function () {
             $('#user_role_form')[0].reset();
-            $('.modal-title').html("<i class='fa fa-plus'></i> Add User");
+            $('.modal-title').html("<i class='fa fa-plus'></i> Add User Role");
             $('#action').val('ADD');
             $('#btn_action').val('ADD');
         });
